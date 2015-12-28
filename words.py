@@ -11,17 +11,18 @@ core_words = {
     "<": "lt",
     "=": "eq",
     ">": "gt",
+    "INVERT": "neg",
 }
 words = [
 
 ]
 wordlines = ""
+ifthen_count = 0
 def add_word(tokens, outfile):
-    
+    global ifthen_count
     global wordlines
     word = tokens.pop(0)
     words.append(word)
-    print word + ": " + str(tokens) 
     
     wordlines += word + ":\n"
     for token in tokens:
@@ -31,6 +32,11 @@ def add_word(tokens, outfile):
             wordlines += core_words[token] + "\n"
         elif token in words:
             wordlines += "call "+token+ "\n"
+        elif token == "IF":
+            wordlines += "neg\n cjump thenw"+str(ifthen_count)+"\n"
+        elif token == "THEN":
+            wordlines += "thenw"+str(ifthen_count) + ":\n"
+            ifthen_count += 1
     wordlines += "ret\n"
             
         

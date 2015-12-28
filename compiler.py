@@ -10,7 +10,7 @@ lines = open(sys.argv[1],"r").read()
 outfile = open(sys.argv[2],"w")
 tokens = whitespace.split(lines)
 tokens_iter = iter(tokens)
-
+ifthen_count = 0
 for token in tokens_iter:
     
     token.strip()
@@ -21,6 +21,12 @@ for token in tokens_iter:
             outfile.write(words.core_words[token] + "\n")
         elif token in words.words:
             outfile.write("call "+token+ "\n")
+        elif token == "IF":
+            print token
+            outfile.write("neg\n cjump then"+str(ifthen_count)+"\n")
+        elif token == "THEN":
+            outfile.write("then"+str(ifthen_count) + ":\n")
+            ifthen_count += 1
         elif token == ":":
             new_word = []
             for w_token in tokens_iter:
@@ -30,6 +36,15 @@ for token in tokens_iter:
                 else:
                     new_word.append(w_token)
             words.add_word(new_word, outfile)
+        elif token == "(":
+            for w_token in tokens_iter:
+                if w_token is ")":
+                    break
+        elif token == "\\":
+             for w_token in tokens_iter:
+                if w_token is "\n":
+                    break
+        
 outfile.write("jump end\n")
 outfile.write(words.wordlines)
 outfile.write("end: nop\n")

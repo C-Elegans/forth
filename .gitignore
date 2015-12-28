@@ -1,0 +1,6 @@
+.*.un~
+*~
+main
+main.s
+*.pyc
+
