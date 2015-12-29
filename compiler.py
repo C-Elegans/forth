@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import words
+import words,stack_as
 import sys, re
 
 whitespace = re.compile(r"[ \t\n]+")
@@ -11,25 +11,26 @@ outfile = open(sys.argv[2],"w")
 tokens = whitespace.split(lines)
 tokens_iter = iter(tokens)
 ifthen_count = 0
+asm_text = ""
 for token in tokens_iter:
     
     token.strip()
     if token:
         if number.match(token):
-            outfile.write("push " + token + "\n")
+            asm_text += "push " + token + "\n"
         elif token in words.core_words:
-            outfile.write(words.core_words[token] + "\n")
+            asm_text += words.core_words[token] + "\n"
         elif token in words.words:
-            outfile.write("call "+token+ "\n")
+            asm_text += "call "+token+ "\n"
         elif token in words.other_words:
             print "other words " + token
-            outfile.write("call "+token+ "\n")
+            asm_text += "call "+token+ "\n"
             words.copy_word(token)
         elif token == "IF":
             print token
-            outfile.write("cjump then"+str(ifthen_count)+"\n")
+            asm_text += "cjump then"+str(ifthen_count)+"\n"
         elif token == "THEN":
-            outfile.write("then"+str(ifthen_count) + ":\n")
+            asm_text += "then"+str(ifthen_count) + ":\n"
             ifthen_count += 1
         elif token == ":":
             new_word = []
@@ -49,6 +50,10 @@ for token in tokens_iter:
                 if w_token is "\n":
                     break
         
-outfile.write("jump end\n")
-outfile.write(words.wordlines)
-outfile.write("end: nop\n")
+asm_text +="jump end\n"
+asm_text +=words.wordlines
+asm_text +="end: nop\n"
+print asm_text
+out_lines = asm_text.split("\n")
+arr = stack_as.main(out_lines)
+outfile.write(bytearray(arr))
