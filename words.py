@@ -18,13 +18,23 @@ core_words = {
     "r@":"rcp",
     "DO":"call 0\n",
     "LOOP":"push 1\n add\n dup\n rot\n dup\n rot\n eq\n neg\n cjump 9\n drop\n swap\n rcp\n rpush\n ret\n",
+    "0=":"push 0\neq\n",
+    "0<":"push 0\nlt\n",
+    "0>":"push 0\ngt\n",
+    "AND":"and\n",
+    "OR":"or\n",
+    "XOR":"xor\n",
+    "LSHIFT":"lshift\n",
+    "RSHIFT":"rshift\n",
+    "<<":"lshift\n",
+    ">>":"rshift\n",
 }
 other_words = {
-    "0=": "0= 0 =",
     "NIP": "NIP SWAP DROP",
     "NROT":"NROT ROT ROT",
     "TUCK":"TUCK DUP NROT",
     "OVER":"OVER SWAP TUCK",
+    
 }
 words = [
 
