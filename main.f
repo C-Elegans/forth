@@ -1,1 +1,2 @@
-1 3 = IF 1 . THEN
+: TEST 1 2 + ;
+TEST . 

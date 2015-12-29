@@ -12,6 +12,9 @@ core_words = {
     "=": "eq",
     ">": "gt",
     "INVERT": "neg",
+    ">r":"rpush",
+    "r>":"rpop",
+    "r@":"rcp",
 }
 words = [
 
@@ -33,7 +36,7 @@ def add_word(tokens, outfile):
         elif token in words:
             wordlines += "call "+token+ "\n"
         elif token == "IF":
-            wordlines += "neg\n cjump thenw"+str(ifthen_count)+"\n"
+            wordlines += "cjump thenw"+str(ifthen_count)+"\n"
         elif token == "THEN":
             wordlines += "thenw"+str(ifthen_count) + ":\n"
             ifthen_count += 1

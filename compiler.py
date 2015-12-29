@@ -23,7 +23,7 @@ for token in tokens_iter:
             outfile.write("call "+token+ "\n")
         elif token == "IF":
             print token
-            outfile.write("neg\n cjump then"+str(ifthen_count)+"\n")
+            outfile.write("cjump then"+str(ifthen_count)+"\n")
         elif token == "THEN":
             outfile.write("then"+str(ifthen_count) + ":\n")
             ifthen_count += 1
