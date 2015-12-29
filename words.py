@@ -17,10 +17,14 @@ core_words = {
     "r>":"rpop",
     "r@":"rcp",
     "DO":"call 0\n",
-    "LOOP":"dup\n rot\n dup\n rot\n eq\n neg\n cjump 9\n drop\n swap\n push 1\n add\n rcp\n rpush\n ret\n",
+    "LOOP":"push 1\n add\n dup\n rot\n dup\n rot\n eq\n neg\n cjump 9\n drop\n swap\n rcp\n rpush\n ret\n",
 }
 other_words = {
-    "TEST": "TEST 1 2 + . ;"
+    "0=": "0= 0 =",
+    "NIP": "NIP SWAP DROP",
+    "NROT":"NROT ROT ROT",
+    "TUCK":"TUCK DUP NROT",
+    "OVER":"OVER SWAP TUCK",
 }
 words = [
 
@@ -40,6 +44,7 @@ def add_word(tokens):
     
     wordlines += word + ":\n"
     for token in tokens:
+        needs_ret = True
         if number.match(token):
             wordlines += "push " + token + "\n"
         elif token in core_words:
@@ -47,12 +52,15 @@ def add_word(tokens):
         elif token in words:
             wordlines += "call "+token+ "\n"
         elif token in other_words:
-            add_word(other_words[token])
+            wordlines += "call "+token+ "\nret\n"
+            needs_ret = False
+            add_word(whitespace.split(other_words[token]))
         elif token == "IF":
             wordlines += "cjump thenw"+str(ifthen_count)+"\n"
         elif token == "THEN":
             wordlines += "thenw"+str(ifthen_count) + ":\n"
             ifthen_count += 1
-    wordlines += "ret\n"
+    if needs_ret:
+        wordlines += "ret\n"
             
         
