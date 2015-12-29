@@ -28,12 +28,16 @@ core_words = {
     "RSHIFT":"rshift\n",
     "<<":"lshift\n",
     ">>":"rshift\n",
+    "*":"mul\n",
+    "@":"fetch\n",
+    "!":"store\n",
 }
 other_words = {
     "NIP": "NIP SWAP DROP",
     "NROT":"NROT ROT ROT",
     "TUCK":"TUCK DUP NROT",
     "OVER":"OVER SWAP TUCK",
+    "+!":"+! DUP @ ROT + SWAP !",#val addr +!
     
 }
 words = [
