@@ -15,6 +15,8 @@ core_words = {
     ">r":"rpush",
     "r>":"rpop",
     "r@":"rcp",
+    "DO":"call 0\n",
+    "LOOP":"dup\n rot\n dup\n rot\n eq\n neg\n cjump 9\n drop\n swap\n push 1\n add\n rcp\n rpush\n ret\n",
 }
 words = [
 

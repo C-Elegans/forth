@@ -1,2 +1,2 @@
-: TEST 1 2 + ;
-TEST . 
+10 1 DO 1 . LOOP 
+
