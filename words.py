@@ -38,6 +38,7 @@ other_words = {
     "TUCK":"TUCK DUP NROT",
     "OVER":"OVER SWAP TUCK",
     "+!":"+! DUP @ ROT + SWAP !",#val addr +!
+    "NEGATE":"NEGATE 0 SWAP -",
     
 }
 words = [
