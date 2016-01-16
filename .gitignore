@@ -4,3 +4,7 @@ main
 main.s
 *.pyc
 main.f
+build/*
+dist/*
+forthc.egg-info/*
+*.s
