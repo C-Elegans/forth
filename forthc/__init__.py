@@ -2,10 +2,12 @@
 import words,stack_as
 import sys, re
 def main():
+        
     whitespace = re.compile(r"[ \t\n]+")
     number = re.compile(r"-?[0-9]+")
     if(len(sys.argv) != 3):
         print "Usage: ./compiler.py [forth] [assembly]"
+        sys.exit(-1)
     lines = open(sys.argv[1],"r").read()
     outfile = open(sys.argv[2],"w")
     tokens = whitespace.split(lines)
